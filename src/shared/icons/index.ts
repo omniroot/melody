@@ -1,0 +1,11 @@
+export { AddToPlaylistIcon } from "./svg/add-to-playlist-icon";
+export { InPlaylistIcon } from "./svg/in-playlist-icon";
+export { LyricIcon } from "./svg/lyric-icon";
+export { NextIcon } from "./svg/next-icon";
+export { PlayIcon } from "./svg/play-icon";
+export { PrevIcon } from "./svg/prev-icon";
+export { ChevronDownIcon } from "./svg/chevron-down-icon";
+export { MoreHorizontalIcon } from "./svg/more-horizontal-icon";
+export { PauseIcon } from "./svg/pause-icon";
+export { PlayListIcon } from "./svg/play-list-icon";
+export { RepeatIcon } from "./svg/repeat-icon";
