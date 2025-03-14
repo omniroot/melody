@@ -3,8 +3,8 @@ import { usePlayer } from "@features/player/stores/player.store.ts";
 import { getCurrentPercent } from "@features/player/utils/getCurrentPercent.ts";
 import { AnimatePresence, motion } from "motion/react";
 import styles from "./MiniPlayer.module.css";
-import { PauseIcon } from "@/shared/icons/pause-icon.tsx";
-import { PlayIcon } from "@/shared/icons/play-icon.tsx";
+import { PauseIcon } from "@/shared/icons/svg/pause-icon";
+import { PlayIcon } from "@/shared/icons/svg/play-icon";
 import { useState } from "react";
 
 export const MiniPlayer = () => {
@@ -54,21 +54,17 @@ export const MiniPlayer = () => {
           drag
           whileDrag={{ cursor: "grabbing", scale: 0.95 }}
           dragSnapToOrigin
-          onDrag={(_, info) => {
-            if (info.velocity.y > 200) {
-              close();
-              return;
-            }
-          }}
           onDragStart={(event) => {
             event.stopPropagation();
             setIsDrag(true);
           }}
           onDragEnd={(event, info) => {
             event.stopPropagation();
+            if (info.velocity.y > 200) {
+              close();
+            }
             if (info.velocity.y < -200) {
               toggleFullscreen(true);
-              return;
             }
             setIsDrag(false);
           }}
@@ -94,6 +90,7 @@ export const MiniPlayer = () => {
             {/* <span>{getCurrentPercent()}</span> */}
           </div>
           <div className={styles.actions}>
+            <span>{String(isDrag)}</span>
             <IconButton variant="transparent" onClick={onCloseClick}>
               X
             </IconButton>

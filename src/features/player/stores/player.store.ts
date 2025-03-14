@@ -3,7 +3,7 @@ import { atomWithStorage } from "jotai/utils";
 import { useEffect } from "react";
 import data from "~/public/db.json";
 
-interface IPlayerStore {
+interface IMusicStore {
   id: string;
   isPlaying: boolean;
   time: number;
@@ -11,7 +11,7 @@ interface IPlayerStore {
   isFullscreen: boolean;
 }
 
-const playerStore = atomWithStorage<IPlayerStore>("player", {
+const musicStore = atomWithStorage<IMusicStore>("player", {
   id: "",
   isPlaying: false,
   volume: 1,
@@ -23,7 +23,7 @@ const audioStore = atom<HTMLAudioElement | null>(null);
 
 export const usePlayer = () => {
   const musicList = data.musics;
-  const [music, setMusic] = useAtom(playerStore);
+  const [music, setMusic] = useAtom(musicStore);
   const [audio, setAudio] = useAtom(audioStore);
 
   const getMusic = (id: string) => {

@@ -20,77 +20,23 @@
     align-items: center;
   }
 
-  .poster {
-    width: 90%;
-    border-radius: 16px;
-  }
-
   .info {
-    width: 100%;
     display: flex;
-    gap: 21px;
-    flex-direction: column;
+    overflow-x: auto; /* Позволяет прокручивать по горизонтали */
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory; /* Включает snap для горизонтальной прокрутки */
+    scroll-behavior: smooth; /* Плавная прокрутка */
+    width: 100%; /* Ширина карусели */
+    height: 100%;
+    scrollbar-width: none;
 
-    .subinfo {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-
-      .name {
-        display: flex;
-        gap: 12px;
-        flex-direction: column;
-
-        .title {
-          font-size: 24px;
-          font-weight: 600;
-        }
-
-        .artist {
-          font-size: 16px;
-          color: var(--color-subtext);
-        }
-      }
+    & > * {
+      min-width: 100%; /* Каждый элемент занимает 100% ширины контейнера */
+      scroll-snap-align: start; /* Выравнивание слайда по началу */
     }
   }
-
-  .progress_bar {
-    width: 100%;
-    display: flex;
-    gap: 12px;
-    flex-direction: column;
-    padding: 8px 0px;
-
-    .percent {
-      width: 0%;
-      height: 4px;
-      background-color: var(--color-primary);
-      border-radius: 8px;
-    }
-
-    .progress_info {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      color: var(--color-subtext);
-      font-size: 15px;
-    }
-  }
-
-  .controls {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    .left,
-    .right,
-    .center {
-      display: flex;
-      gap: 12px;
-    }
-  }
-
   .actions {
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;

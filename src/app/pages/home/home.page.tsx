@@ -9,11 +9,6 @@ interface IProps {
 
 export const HomePage: FC<IProps> = () => {
   const { music } = usePlayer();
-  // const { data: searchs } = useSearchGenius({
-  //   variables: { query: "Hunnid Days" },
-  // });
-
-  // console.log({ searchs });
 
   return (
     <div className={styles.page}>
