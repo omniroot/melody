@@ -1,0 +1,31 @@
+{
+  "musics": [
+    {
+      "id": "sixthells-hunnid-days",
+      "poster": "https://t2.genius.com/unsafe/340x340/https%3A%2F%2Fimages.genius.com%2F412ba944ea1c4efe88d3821f2eb20560.500x500x1.jpg",
+      "title": "Hunnid Days",
+      "artist": "Sixthells",
+      "duration": 159,
+      "genre": ["Rap"],
+      "path": "/music/Sixthells - Hunnid Days.mp3"
+    },
+    {
+      "id": "fall-out-boy-the-last-of-the-real-ones",
+      "poster": "https://t2.genius.com/unsafe/340x340/https%3A%2F%2Fimages.genius.com%2F498be5169e62ef48eac8a05e6e04f8d4.1000x1000x1.png",
+      "title": "The Last Of The Real Ones",
+      "artist": "Fall Out Boy",
+      "duration": 232,
+      "genre": ["Rock"],
+      "path": "/music/Fall Out Boy - The Last Of The Real Ones.mp3"
+    },
+    {
+      "id": "slava-kpss-rolls-royce-fantom",
+      "poster": "https://t2.genius.com/unsafe/340x340/https%3A%2F%2Fimages.genius.com%2Ffc1717d06c558cf956376a3283d40d96.1000x1000x1.jpg",
+      "title": "Rolls Royce Fantom",
+      "artist": "Slava KPSS, Skurt & mzlff",
+      "duration": 193,
+      "genre": ["Rock"],
+      "path": "/music/Slava-kpss-rolls-royce-fantom.mp3"
+    }
+  ]
+}

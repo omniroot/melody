@@ -1,0 +1,82 @@
+.mini_player {
+  width: 96%;
+  height: fit-content;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+
+  background-color: var(--color-secondary);
+  padding: 8px;
+  border-radius: 16px;
+  position: fixed;
+  bottom: 10px;
+  left: 50%;
+  translate: -50%;
+
+  .progress_bar {
+    width: 98%;
+    height: 4px;
+    top: 6px;
+    left: 50%;
+    position: absolute;
+    translate: -50%;
+    padding: 2px;
+
+    .percent {
+      width: 0%;
+      height: 4px;
+      background-color: var(--color-primary);
+      border-radius: 8px;
+    }
+  }
+
+  .poster {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    margin-top: 10px;
+  }
+
+  .info {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
+    .title {
+      width: 25ch; /* Ширина элемента */
+      font-size: 18px; /* Размер шрифта */
+      overflow: hidden; /* Скрыть переполнение */
+      text-overflow: ellipsis; /* Показать троеточие */
+      white-space: nowrap; /* Запретить перенос строк */
+    }
+
+    .author {
+      font-size: 14px;
+      color: var(--color-subtext);
+    }
+  }
+
+  .actions {
+    display: flex;
+    margin-left: auto;
+    gap: 12px;
+
+    & > * {
+      width: 30px;
+      height: 30px;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .mini_player .info .title {
+    font-size: 16px; /* Уменьшите размер шрифта */
+  }
+}
+
+@media (max-width: 400px) {
+  .mini_player .info .title {
+    font-size: 14px; /* Уменьшите размер шрифта еще больше */
+  }
+}

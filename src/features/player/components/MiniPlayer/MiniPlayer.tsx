@@ -1,0 +1,86 @@
+import { IconButton } from "@components/IconButton/IconButton.tsx";
+import { usePlayer } from "@features/player/stores/player.store.ts";
+import { getCurrentPercent } from "@features/player/utils/getCurrentPercent.ts";
+import { AnimatePresence, motion } from "motion/react";
+import styles from "./MiniPlayer.module.css";
+import { PauseIcon } from "@/shared/icons/pause-icon.tsx";
+import { PlayIcon } from "@/shared/icons/play-icon.tsx";
+
+export const MiniPlayer = () => {
+  const { music, getMusic, close, toggleSize, togglePlay, debugEnd } =
+    usePlayer();
+  const currentMusic = getMusic(music.id);
+
+  const currentPercent = getCurrentPercent(
+    music.time,
+    currentMusic?.duration || 1
+  );
+
+  const onPlayerClick = (event: React.MouseEvent) => {
+    event.stopPropagation();
+
+    toggleSize();
+  };
+
+  const onPlayClick = (event: React.MouseEvent) => {
+    event.stopPropagation();
+
+    togglePlay();
+  };
+
+  const onCloseClick = (event: React.MouseEvent) => {
+    event.stopPropagation();
+    close();
+  };
+
+  const onDebugClick = (event: React.MouseEvent) => {
+    event.stopPropagation();
+    debugEnd();
+  };
+
+  return (
+    <AnimatePresence mode="wait">
+      {currentMusic && music.mini && (
+        <motion.div
+          className={styles.mini_player}
+          onClick={onPlayerClick}
+          initial={{ y: "110%" }}
+          animate={{ y: 0 }}
+          exit={{ y: "110%" }}
+          transition={{ duration: 0.2 }}
+        >
+          <div className={styles.progress_bar}>
+            <motion.div
+              className={styles.percent}
+              initial={{ width: `1%` }}
+              animate={{ width: `${currentPercent}%` }}
+              // style={{ width: `${currentPercent}%` }}
+            ></motion.div>
+          </div>
+          <img
+            src={currentMusic.poster}
+            alt={currentMusic.title}
+            className={styles.poster}
+          />
+          <div className={styles.info}>
+            <span className={styles.title}>{currentMusic.title}</span>
+            <span className={styles.author}>{currentMusic.artist}</span>
+            {/* <span>{getCurrentPercent()}</span> */}
+          </div>
+          <div className={styles.actions}>
+            <IconButton variant="transparent" onClick={onCloseClick}>
+              X
+            </IconButton>
+
+            <IconButton variant="transparent" onClick={onDebugClick}>
+              END
+            </IconButton>
+            <IconButton variant="transparent" onClick={onPlayClick}>
+              {music.isPlaying ? <PauseIcon /> : <PlayIcon />}
+            </IconButton>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+};
