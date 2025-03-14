@@ -5,9 +5,11 @@ import { AnimatePresence, motion } from "motion/react";
 import styles from "./MiniPlayer.module.css";
 import { PauseIcon } from "@/shared/icons/pause-icon.tsx";
 import { PlayIcon } from "@/shared/icons/play-icon.tsx";
+import { useState } from "react";
 
 export const MiniPlayer = () => {
-  const { music, getMusic, close, toggleSize, togglePlay, debugEnd } =
+  const [isDrag, setIsDrag] = useState(false);
+  const { music, getMusic, close, toggleFullscreen, togglePlay, debugEnd } =
     usePlayer();
   const currentMusic = getMusic(music.id);
 
@@ -19,7 +21,9 @@ export const MiniPlayer = () => {
   const onPlayerClick = (event: React.MouseEvent) => {
     event.stopPropagation();
 
-    toggleSize();
+    if (!isDrag) {
+      toggleFullscreen();
+    }
   };
 
   const onPlayClick = (event: React.MouseEvent) => {
@@ -40,13 +44,35 @@ export const MiniPlayer = () => {
 
   return (
     <AnimatePresence mode="wait">
-      {currentMusic && music.mini && (
+      {currentMusic && !music.isFullscreen && (
         <motion.div
           className={styles.mini_player}
           onClick={onPlayerClick}
           initial={{ y: "110%" }}
           animate={{ y: 0 }}
           exit={{ y: "110%" }}
+          drag
+          whileDrag={{ cursor: "grabbing", scale: 0.95 }}
+          dragSnapToOrigin
+          onDrag={(_, info) => {
+            if (info.velocity.y > 200) {
+              close();
+              return;
+            }
+          }}
+          onDragStart={(event) => {
+            event.stopPropagation();
+            setIsDrag(true);
+          }}
+          onDragEnd={(event, info) => {
+            event.stopPropagation();
+            if (info.velocity.y < -200) {
+              toggleFullscreen(true);
+              return;
+            }
+            setIsDrag(false);
+          }}
+          dragDirectionLock
           transition={{ duration: 0.2 }}
         >
           <div className={styles.progress_bar}>

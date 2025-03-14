@@ -8,7 +8,7 @@ interface IPlayerStore {
   isPlaying: boolean;
   time: number;
   volume: number;
-  mini: boolean;
+  isFullscreen: boolean;
 }
 
 const playerStore = atomWithStorage<IPlayerStore>("player", {
@@ -16,7 +16,7 @@ const playerStore = atomWithStorage<IPlayerStore>("player", {
   isPlaying: false,
   volume: 1,
   time: 0,
-  mini: false,
+  isFullscreen: false,
 });
 
 const audioStore = atom<HTMLAudioElement | null>(null);
@@ -81,10 +81,14 @@ export const usePlayer = () => {
   }, [audio, music.isPlaying]);
 
   const setCurrentMusic = (id: string) => {
-    audio?.pause();
+    if (music.id === id) {
+      toggleFullscreen(true);
+      return;
+    }
 
+    audio?.pause();
     setAudio(new Audio(getMusic(id)?.path || ""));
-    setMusic({ time: 0, volume: 1, isPlaying: true, id, mini: false });
+    setMusic({ time: 0, volume: 1, isPlaying: true, id, isFullscreen: true });
   };
 
   const togglePlay = () => {
@@ -128,12 +132,24 @@ export const usePlayer = () => {
       audio.currentTime = 0;
       audio.src = "";
       setAudio(null);
-      setMusic({ id: "", isPlaying: false, time: 0, volume: 1, mini: false });
+      setMusic({
+        id: "",
+        isPlaying: false,
+        time: 0,
+        volume: 1,
+        isFullscreen: false,
+      });
     }
   };
 
-  const toggleSize = () => {
-    setMusic((prev) => ({ ...prev, mini: !prev.mini }));
+  const toggleFullscreen = (newSize: boolean | null = null) => {
+    console.log(music.isFullscreen, ">>", newSize);
+    if (newSize !== null) {
+      setMusic((prev) => ({ ...prev, isFullscreen: newSize }));
+      return;
+    }
+
+    setMusic((prev) => ({ ...prev, isFullscreen: !prev.isFullscreen }));
   };
 
   console.log({ music, audio });
@@ -142,7 +158,7 @@ export const usePlayer = () => {
     music,
     musicList,
     togglePlay,
-    toggleSize,
+    toggleFullscreen,
     close,
     debugEnd,
     getMusic,

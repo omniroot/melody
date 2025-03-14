@@ -16,7 +16,7 @@ import { RepeatIcon } from "@/shared/icons/repeat-icon.tsx";
 import { Button } from "@components/Button/Button.tsx";
 
 export const FullPlayer = () => {
-  const { music, getMusic, close, toggleSize, togglePlay, debugEnd } =
+  const { music, getMusic, close, toggleFullscreen, togglePlay, debugEnd } =
     usePlayer();
   const currentMusic = getMusic(music.id);
 
@@ -42,12 +42,12 @@ export const FullPlayer = () => {
   };
   const onMinimizeClick = (event: React.MouseEvent) => {
     event.stopPropagation();
-    toggleSize();
+    toggleFullscreen();
   };
 
   return (
     <AnimatePresence>
-      {currentMusic && !music.mini && (
+      {currentMusic && music.isFullscreen && (
         <motion.div
           className={styles.full_player}
           initial={{ y: "110%" }}
