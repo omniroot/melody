@@ -62,24 +62,6 @@ export const FullPlayer = () => {
           animate={{ y: 0 }}
           exit={{ y: "110%" }}
           transition={{ duration: 0.2 }}
-          drag="y"
-          whileDrag={{ cursor: "grabbing", scale: 0.95 }}
-          dragConstraints={{ top: 0, bottom: 0 }}
-          dragSnapToOrigin
-          onDragStart={(event) => {
-            event.stopPropagation();
-            // setIsDrag(true);
-          }}
-          onDragEnd={(event, info) => {
-            event.stopPropagation();
-            if (info.velocity.y > 200) {
-              toggleFullscreen(false);
-            }
-            if (info.velocity.y < -200) {
-              console.log("OPen more menu");
-            }
-            console.log(info.velocity);
-          }}
         >
           <div className={styles.header}>
             <Button onClick={onMinimizeClick}>minimize</Button>
